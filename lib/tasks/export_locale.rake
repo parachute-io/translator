@@ -33,8 +33,8 @@ namespace :translator do
       Translator.current_store.keys.each do |k|
         store_array = k.split(".")
         if store_array.first.to_sym == l.to_sym
-          value = Translator.current_store[k].to_s
-          locale_hash.deep_merge!(store_array.drop(1).reverse.inject(value) { |a, n| { n.to_sym => a } })
+          value = MultiJson.decode Translator.current_store[k]
+          locale_hash.deep_merge!(store_array.drop(1).reverse.inject(value.to_s) { |a, n| { n.to_sym => a } })
         end
       end
       
