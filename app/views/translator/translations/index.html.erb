@@ -1,15 +1,15 @@
-<div id='translations'>
-  <div id="header">
-    <h1>Translations</h1>
-
-    <%= form_tag translations_path, :method => "get" do %>
-      <%= label_tag :key, "Filter: " %>
-      <%= text_field_tag :search, params[:search], :placeholder => "Search for text..." %>
-      <%= select_tag :key, options_for_select(@sections.collect {|k| [k.humanize, k]}.unshift(["All sections", nil]), params[:key]) %>
-      <%= select_tag :group, options_for_select(@groups.collect {|k| [k.humanize, k]}.unshift(["All groups", nil]), params[:group]) %>
-      <%= select_tag :translated, options_for_select([["Translation state", nil], ['Fully translated', '1'], ['Missing translations', '0']], params[:translated]) %>
-      <%= submit_tag "Submit" %>
-    <% end %>
+<div class="container">
+  <div class="navbar">
+    <div class="navbar-inner">
+        <%= form_tag translations_path, :method => "get" do %>
+          <%= label_tag :key, "Filter: " %>
+          <%= text_field_tag :search, params[:search], :placeholder => "Search for text..." %>
+          <%= select_tag :key, options_for_select(@sections.collect {|k| [k.humanize, k]}.unshift(["All sections", nil]), params[:key]) %>
+          <%= select_tag :group, options_for_select(@groups.collect {|k| [k.humanize, k]}.unshift(["All groups", nil]), params[:group]) %>
+          <%= select_tag :translated, options_for_select([["Translation state", nil], ['Fully translated', '1'], ['Missing translations', '0']], params[:translated]) %>
+          <%= submit_tag "Submit", :class => "btn btn-primary" %>
+        <% end %>
+    </div>
   </div>
   <% if params[:group] && params[:group] == 'deleted' %>
     <div>
@@ -19,7 +19,7 @@
 
   <% @keys.each do |key| %>
     <div id="<%= key.gsub('.','-')  %>" class="translation">
-      <h2>
+      <h4>
         <%-
           parts = key.split('.').map(&:humanize)
           if params[:key].present?
@@ -29,7 +29,7 @@
           end
         %>
         <%= parts.join(' > ').html_safe %>
-      </h2>
+      </h4>
 
       <% if params[:group] && params[:group] == 'deleted' %>
         <%= link_to 'destroy', translation_path(:id => key.gsub('.','-')),
