@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "translator"
-  s.version     = "0.0.1"
+  s.version     = "0.0.2"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Hubert Łępicki", "Luis Doubrava"]
   s.email       = ["hubert.lepicki@amberbit.com"]
