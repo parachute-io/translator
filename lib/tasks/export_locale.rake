@@ -9,7 +9,7 @@ end
 
 namespace :translator do
 
-  def write(filename, hash={})
+  def write_translations(filename, hash={})
     File.open(filename, "w") do |f|
       f.write(yaml(hash))
     end
@@ -43,7 +43,7 @@ namespace :translator do
       file_hash = {}
       file_hash["#{l}"] = locale_hash
       puts "Writing: #{l}.yml"
-      write("#{Rails.root}/shared/translations/#{l}.yml", file_hash)
+      write_translations("#{Rails.root}/shared/translations/#{l}.yml", file_hash)
     end
   end
 end
