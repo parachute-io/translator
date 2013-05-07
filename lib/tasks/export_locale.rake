@@ -9,7 +9,7 @@ end
 
 namespace :translator do
 
-  def write(filename, hash)
+  def write(filename, hash={})
     File.open(filename, "w") do |f|
       f.write(yaml(hash))
     end
