@@ -43,7 +43,7 @@ namespace :translator do
       file_hash = {}
       file_hash["#{l}"] = locale_hash
       puts "Writing: #{l}.yml"
-      write("#{Rails.root}/tmp/translations/#{l}.yml", file_hash)
+      write("#{Rails.root}/shared/translations/#{l}.yml", file_hash)
     end
   end
 end
