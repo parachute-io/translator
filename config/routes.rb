@@ -1,7 +1,9 @@
 # When Rails >= 3.1
 if defined?(Translator::Engine)
-  Translator::Engine.routes.draw do
-    resources :translations
+  if Rails.env != "production"
+    Translator::Engine.routes.draw do
+      resources :translations
+    end
   end
 else
   Rails.application.routes.draw do
