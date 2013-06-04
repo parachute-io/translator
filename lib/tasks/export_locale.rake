@@ -18,7 +18,7 @@ namespace :translator do
   def yaml(hash)
     method = hash.respond_to?(:ya2yaml) ? :ya2yaml : :to_yaml
     string = hash.deep_stringify_keys.send(method)
-    string.gsub("!ruby/symbol ", ":").sub("---","").split("\n").map(&:rstrip).join("\n").strip
+    string.gsub("!ruby/symbol ", ":").gsub("rule: !ruby/object:Proc {}", "").gsub('["', "").gsub('"]', "").sub("---","").split("\n").map(&:rstrip).join("\n").strip
   end
 
   desc "Create locale YML files"
