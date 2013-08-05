@@ -14,7 +14,11 @@ module Translator
     end
 
     def [](key)
-      @redis[key]
+      return if key.blank?
+      return if @redis[key].blank?
+      decoded_value = ActiveSupport::JSON.decode(@redis[key])
+      value = decoded_value.is_a?(Array) ? decoded_value.join : decoded_value
+      ActiveSupport::JSON.encode(value)
     end
 
     def clear_database
