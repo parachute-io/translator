@@ -16,3 +16,7 @@ gem "cgi_multipart_eof_fix"
 gem "fastthread"
 gem "pry"
 
+group :development do
+  gem "tzinfo"
+  gem "redis"
+end

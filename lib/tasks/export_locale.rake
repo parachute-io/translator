@@ -15,10 +15,16 @@ namespace :translator do
     end
   end
 
+  def valid_yaml_string?(yaml)
+    !!YAML.load_file(yaml)
+  rescue Exception => e
+    puts "Yaml load failed: #{e.message}"
+  end
+
   def yaml(hash)
     method = hash.respond_to?(:ya2yaml) ? :ya2yaml : :to_yaml
     string = hash.deep_stringify_keys.send(method)
-    string.gsub("!ruby/symbol ", ":").gsub("rule: !ruby/object:Proc {}", "").gsub('["', "").gsub('"]', "").sub("---","").gsub('\"', '"').gsub('\r\n', "\n\n").split("\n").map(&:rstrip).join("\n").strip
+    string.gsub('\r\n', "\n\n")
   end
 
   desc "Create locale YML files"
@@ -30,7 +36,9 @@ namespace :translator do
 
     Translator.available_locales.each do |l|
 
-      locale_hash = Translator.simple_backend.send(:translations)[l.to_sym]
+      # Export only the redis texts added from the management system.
+      #locale_hash = Translator.simple_backend.send(:translations)[l.to_sym]
+      locale_hash = {}
 
       Translator.current_store.keys.each do |k|
         store_array = k.split(".")
@@ -42,8 +50,13 @@ namespace :translator do
 
       file_hash = {}
       file_hash["#{l}"] = locale_hash
+
       puts "Writing: #{l}.yml"
       write_translations("#{Rails.root}/shared/translations/#{l}.yml", file_hash)
+
+      puts "Checking #{l}.yml"
+      valid_yaml_string?("#{Rails.root}/shared/translations/#{l}.yml")
+
     end
   end
 end
