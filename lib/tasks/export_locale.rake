@@ -19,6 +19,7 @@ namespace :translator do
     !!YAML.load_file(yaml)
   rescue Exception => e
     puts "Yaml load failed: #{e.message}"
+    exit
   end
 
   def yaml(hash)
@@ -36,8 +37,8 @@ namespace :translator do
     Translator.available_locales.each do |l|
 
       # Export only the redis texts added from the management system.
-      #locale_hash = Translator.simple_backend.send(:translations)[l.to_sym]
-      locale_hash = {}
+      locale_hash = Translator.simple_backend.send(:translations)[l.to_sym]
+      #locale_hash = {}
 
       Translator.current_store.keys.each do |k|
         store_array = k.split(".")
