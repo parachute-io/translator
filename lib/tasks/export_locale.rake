@@ -23,8 +23,7 @@ namespace :translator do
 
   def yaml(hash)
     method = hash.respond_to?(:ya2yaml) ? :ya2yaml : :to_yaml
-    string = hash.deep_stringify_keys.send(method)
-    string.gsub('\r\n', "\n\n")
+    hash.deep_stringify_keys.send(method)
   end
 
   desc "Create locale YML files"
@@ -43,7 +42,7 @@ namespace :translator do
       Translator.current_store.keys.each do |k|
         store_array = k.split(".")
         if store_array.first.to_sym == l.to_sym
-          value = MultiJson.decode Translator.current_store[k]
+          value = ActiveSupport::JSON.decode Translator.current_store[k]
           locale_hash.deep_merge!(store_array.drop(1).reverse.inject(value.to_s) { |a, n| { n.to_sym => a } })
         end
       end

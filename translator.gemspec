@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "translator"
-  s.version     = "0.0.8"
+  s.version     = "0.0.9"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Hubert Łępicki", "Luis Doubrava"]
   s.email       = ["hubert.lepicki@amberbit.com"]
@@ -17,5 +17,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'i18n'
   s.add_dependency 'redis'
+  s.add_dependency 'ya2yaml'
+
 end
 

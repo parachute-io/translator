@@ -15,6 +15,7 @@ gem "timecop", "0.3.5"
 gem "cgi_multipart_eof_fix"
 gem "fastthread"
 gem "pry"
+gem "ya2yaml", "~> 0.31"
 
 group :development do
   gem "tzinfo"
