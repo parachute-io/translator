@@ -19,7 +19,6 @@ namespace :translator do
     !!YAML.load_file(yaml)
   rescue Exception => e
     puts "Yaml load failed: #{e.message}"
-    exit
   end
 
   def yaml(hash)
