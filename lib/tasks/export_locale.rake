@@ -18,7 +18,8 @@ namespace :translator do
   def valid_yaml_string?(yaml)
     !!YAML.load_file(yaml)
   rescue Exception => e
-    puts "Yaml load failed: #{e.message}"
+    File.new("#{Rails.root}/shared/translations/stop", "w")
+    raise "Yaml load failed: #{e.message}"
   end
 
   def yaml(hash)
@@ -31,6 +32,7 @@ namespace :translator do
     puts "Starting Export of YML files."
     puts "Available locales: #{Translator.available_locales.inspect} for #{Rails.env}"
 
+    puts "Start application eager load"
     Rails.application.eager_load!
 
     Translator.available_locales.each do |l|
