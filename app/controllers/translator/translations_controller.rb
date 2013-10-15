@@ -1,6 +1,7 @@
 module Translator
   class TranslationsController < ApplicationController
     before_filter :auth
+    layout Translator.layout_name
 
     def index
       section = params[:key].present? && params[:key] + '.'
@@ -26,10 +27,8 @@ module Translator
         }
       end
 
-
       @keys = paginate(@keys)
 
-      render :layout => Translator.layout_name
     end
 
     def create
