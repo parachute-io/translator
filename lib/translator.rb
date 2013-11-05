@@ -79,7 +79,7 @@ module Translator
     when "application"
     end
     keys -= @framework_keys
-    keys.delete_if {|x| x =~ /^mongo|^stringex|^devise|^errors|^flash/ } 
+    keys.delete_if {|x| x =~ /^mongo|^stringex|^devise|^errors|^flash|^helpers|^blocks/ } 
 
     keys || []
   end
