@@ -77,8 +77,9 @@ module Translator
     when "framework"
       keys.select! {|k| @framework_keys.include?(k) }
     when "application"
-      keys -= @framework_keys
     end
+    keys -= @framework_keys
+    keys.delete_if {|x| x =~ /^mongo|^stringex|^devise|^errors|^flash/ } 
 
     keys || []
   end
