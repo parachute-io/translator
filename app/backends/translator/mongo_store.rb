@@ -16,7 +16,7 @@ module Translator
     end
 
     def [](key)
-      if document = collection.find_one(:_id => key)
+      if document = collection.find(_id: key)
         document["value"]
       else
         nil
