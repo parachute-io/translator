@@ -16,8 +16,8 @@ module Translator
     end
 
     def [](key)
-      if document = collection.find(_id: key)
-        document.first["value"]
+      if document = collection.find(_id: key).first
+        document["value"]
       else
         nil
       end
