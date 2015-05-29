@@ -5,7 +5,7 @@ module Translator
     end
 
     def keys
-      @collection.distinct :_id
+      @collection.find.distinct :_id
     end
 
     def []=(key, value)
