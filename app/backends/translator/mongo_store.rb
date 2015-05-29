@@ -10,9 +10,11 @@ module Translator
 
     def []=(key, value)
       value = nil if value.blank?
-      collection.update({:_id => key},
-                        {'$set' => {:value => ActiveSupport::JSON.encode(value)}},
-                        {:upsert => true, :safe => true})
+
+# Assessment.collection.find('result_access' => {'$exist' => false}).update({'$set' => {'result_access' => 'all'}, {:multi => true})
+
+
+      collection.find(_id: key).update({'$set' => {:value => ActiveSupport::JSON.encode(value)}}, {:upsert => true, :safe => true})
     end
 
     def [](key)
